@@ -1,55 +1,53 @@
-encryptprogram = input("If you wish to Encrypt a message, press the 'e' key. If you wish to decrypt a message, press the 'd' key. ")
-if encrypt == ('e'):
-      encrypt()
-elif decrypt == ('d'):
-  decrypt()
-  
-else:
-  stop()
+
+decrypted_message = ''
+
+LUT_encryption = dict()
+LUT_decryption = dict()
 
 #while loop that controls the entire program goes here
-encryption_program = True 
-while encryption_program:
+program_on = True 
+while program_on: 
 
-  LUT_encryption = dict()
-  LUT_decryption = dict()
 
-#encryption function goes here
-def encrypt():
-  n = input("Please enter the n value (P * Q):")
-  e = input("Please enter the e value (smallest co-prime number between your P and Q values):")
-  message = input("Please enter the message you wish to encrypt:")
-  encrypted_message = ''
-  encrypted_message2 = ''
-for x in message:
-    if x in LUT_encryption:
-        message = LUT_encryption[x]
+  option = input('Type "1" to encrypt a message, type "2" to decrypt:')
+  if option == '1':
+      ## encryption function goes here
+      encrypted_message = ''
+      n = int(input('Please enter n value (P * Q):'))
+      e = int(input('Please enter e value (smallest co-prime number between your P and Q values):'))
+      message = input('Now enter the message you wish to encrypt:')
+      for x in message:
+          if x in LUT_encryption:
+              encrypted_message += LUT_encryption[x]
+      
+          else:
+              numerize = ord(x)
+              encrypt = pow(numerize, e, n)
+              denumerize = chr(encrypt)
+              encrypted_message += denumerize
+              LUT_encryption[x] = denumerize
+      print ('Your message: ', encrypted_message)
 
-    else:
-        numerize = ord(x)
-        encrypt = pow(numerize, e, n)
-        denumerize = chr(encrypt)
-        message += denumerize
-        LUT_encryption[x] = denumerize
 
-print('encrypted_message')
+  elif option == '2': 
+    ## decryption function goes here
+    d = int(input('Please enter d value:'))
+    n = int(input('Please enter n value (P * Q):'))
+    decrypt_message = input('Please enter the message you wish to decrypt:')
+    
+    for t in encrypted_message:
+     if t in LUT_encryption:
+      decrypted_message == LUT_encryption[t]
 
-#decryption function goes here
-encrypted_message2 = input("Please enter the message you wish to decrypt.")
-def decrypt():
-  for t in encrypted_message2:
-    if t in LUT_encryption:
-      encrypted_message2 += LUT_encryption[t]
-    else: 
-          numerize = ord(t)
+     else: 
+          numerize and [t]
           decrypt = pow(numerize, e, n)
-          encrypted_message += denumerize
+          decrypted_message += denumerize
           LUT_encryption[t] = denumerize
-
-print('encrypted_message2')
-
-#option to exit goes here
-def stop():
-    stop = input("Press S to stop, press C to continue")
-    if stop == ('S'):
-      encryption_program = False
+    print ('Decrypted message: ',decrypted_message)
+  
+  ##option to exit goes here
+  stop = input('Press "s" to stop, press "c" to continue')
+  if stop == 's':
+    program_on = False
+    print ('Restart the program to use again')
